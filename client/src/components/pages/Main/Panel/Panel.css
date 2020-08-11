@@ -1,0 +1,29 @@
+.panel-wrapper{
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 99;
+    background-color: #1b1b17;
+    padding: 10px;
+}
+
+.panel-wrapper h2{
+    margin: 0;
+    color: #7e7e7e;
+}
+
+.panel-wrapper h2 span{
+    color: #ffffff;
+}
+
+.panel-select{
+    margin: 15px 0;
+}
+
+.panel-select span{
+    color: #ffffff;
+}
+
+.buttons img{
+    cursor: pointer;
+}
