@@ -26,4 +26,5 @@
 
 .buttons img{
     cursor: pointer;
+    width: 24px;
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Panel } from "./Panel/Panel";
+import { useHistory } from "react-router-dom";
 import AceEditor from "react-ace";
 import "./Main.css";
 import "ace-builds/src-noconflict/mode-ruby";
@@ -16,7 +17,8 @@ import "ace-builds/src-noconflict/mode-typescript";
 import "ace-builds/src-noconflict/mode-css";
 import "ace-builds/src-noconflict/theme-monokai";
 
-const Main = ({status, filename}) => {
+const Main = ({ status, filename }) => {
+  const history = useHistory();
   const [mode, setMode] = useState("javascript");
   const [loading, setLoading] = useState(false);
   const changeHandler = e => {
@@ -26,28 +28,48 @@ const Main = ({status, filename}) => {
   const onChange = v => {
     setValue(v);
   };
-  useEffect(()=>{
-    if(status){
-      (async ()=>{
-        const res = await fetch('https://jsonplaceholder.typicode.com/todos/1');
-        if(res.ok){
-          const data = await res.json();
-          setValue(JSON.stringify(data));
-        }
-      })()
+  const addHandler = async () => {
+    setLoading(true);
+    const res = await fetch("/add-bin", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        mode,
+        code: value,
+      }),
+    });
+    if (res.ok) {
+      const data = await res.json();
+      setLoading(false);
+      history.push(`/p/${data.filename}`);
     }
-  },[status])
+  };
+  useEffect(() => {
+    if (status) {
+      (async () => {
+        const res = await fetch(`/fetch-bin/${filename}`);
+        if (res.ok) {
+          const data = await res.json();
+          setValue(data.code);
+          setMode(data.mode);
+        }
+      })();
+    }
+  }, [status]);
   return (
     <div className="main-page page">
       <Panel
-        onSave={() => {}}
-        onNew={() => {}}
+        onSave={addHandler}
+        onNew={() => history.push("/")}
         mode={mode}
         setMode={changeHandler}
         loading={loading}
         status={status}
       />
       <AceEditor
+        enableSnippets={true}
         mode={mode}
         theme="monokai"
         value={value}

@@ -22,7 +22,7 @@ export const Routing = () => {
                   exact
                   path="/p/:filename"
                   render={props => {
-                    return <Main filename={5} status={true}/>;
+                    return <Main filename={props.match.params.filename} status={true}/>;
                   }}
                 />
               </Switch>
