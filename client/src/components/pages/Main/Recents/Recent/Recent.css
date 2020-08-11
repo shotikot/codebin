@@ -1,0 +1,19 @@
+.recent {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid gray;
+  padding: 4px 0;
+}
+
+.recent .normal {
+  color: #7e343a;
+  margin: 2px 0;
+}
+
+.recent a {
+  text-decoration: none;
+}
+
+.recent .small{
+    color: #7e7e7e;
+}

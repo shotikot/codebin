@@ -12,6 +12,14 @@ const binSchema = new mongoose.Schema({
     filename: {
         type: String,
         required: true
+    },
+    private:{
+        type: Boolean,
+        default: false
+    },
+    createdAt:{
+        type: Date,
+        default: Date.now
     }
 })
 

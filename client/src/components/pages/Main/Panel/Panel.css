@@ -1,8 +1,4 @@
 .panel-wrapper{
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 99;
     background-color: #1b1b17;
     padding: 10px;
 }
@@ -17,7 +13,7 @@
 }
 
 .panel-select{
-    margin: 15px 0;
+    margin: 15px 0 5px 0;
 }
 
 .panel-select span{
@@ -27,4 +23,21 @@
 .buttons img{
     cursor: pointer;
     width: 24px;
+}
+
+.private input{
+    transform: translateY(2px);
+    cursor: pointer;
+}
+
+.private input:disabled{
+    cursor: unset;
+}
+
+.private span{
+    color: #ffffff;
+}
+
+.private{
+    margin-bottom: 15px;
 }

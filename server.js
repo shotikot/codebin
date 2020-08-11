@@ -3,6 +3,8 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const newBin = require("./controllers/newBin");
 const fetchBin = require("./controllers/fetchBin");
+const Bin = require("./models/bin");
+const recentBins = require("./controllers/recentBins");
 const port = process.env.port || 4000;
 require("dotenv").config({
   path: __dirname + "/.env",
@@ -25,6 +27,7 @@ mongoose.connect(
 );
 
 router.post('/add-bin', newBin);
+router.get('/recent-bins', recentBins);
 router.get('/fetch-bin/:filename', fetchBin);
 app.use(router);
 

@@ -1,0 +1,10 @@
+.recents-container{
+    background-color: #1e1f1a;
+    padding: 10px;
+}
+
+.recents-container h2{
+    margin: 0;
+    padding: 10px 0;
+    color: #ffffff;
+}

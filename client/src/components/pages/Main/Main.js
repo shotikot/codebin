@@ -16,11 +16,13 @@ import "ace-builds/src-noconflict/mode-elixir";
 import "ace-builds/src-noconflict/mode-typescript";
 import "ace-builds/src-noconflict/mode-css";
 import "ace-builds/src-noconflict/theme-monokai";
+import { Recents } from "./Recents/Recents";
 
 const Main = ({ status, filename }) => {
   const history = useHistory();
   const [mode, setMode] = useState("javascript");
   const [loading, setLoading] = useState(false);
+  const [prvt, setPrivate] = useState(false);
   const changeHandler = e => {
     setMode(e.target.value);
   };
@@ -37,6 +39,7 @@ const Main = ({ status, filename }) => {
       },
       body: JSON.stringify({
         mode,
+        private: prvt,
         code: value,
       }),
     });
@@ -54,20 +57,26 @@ const Main = ({ status, filename }) => {
           const data = await res.json();
           setValue(data.code);
           setMode(data.mode);
+          setPrivate(data.private);
         }
       })();
     }
-  }, [status]);
+  }, [status, filename]);
   return (
     <div className="main-page page">
-      <Panel
-        onSave={addHandler}
-        onNew={() => history.push("/")}
-        mode={mode}
-        setMode={changeHandler}
-        loading={loading}
-        status={status}
-      />
+      <div className="bar-container">
+        <Panel
+          onSave={addHandler}
+          onNew={() => history.push("/")}
+          mode={mode}
+          setMode={changeHandler}
+          loading={loading}
+          status={status}
+          prvt={prvt}
+          setPrivate={() => setPrivate(s => !s)}
+        />
+        <Recents />
+      </div>
       <AceEditor
         enableSnippets={true}
         mode={mode}

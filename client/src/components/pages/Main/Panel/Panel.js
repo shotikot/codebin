@@ -2,7 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./Panel.css";
 
-export const Panel = ({ mode, setMode, onSave, onNew, loading, status }) => {
+export const Panel = ({
+  mode,
+  setMode,
+  onSave,
+  onNew,
+  loading,
+  status,
+  prvt,
+  setPrivate,
+}) => {
   const modes = [
     "javascript",
     "java",
@@ -36,6 +45,10 @@ export const Panel = ({ mode, setMode, onSave, onNew, loading, status }) => {
           ))}
         </select>
       </div>
+      <div className="private">
+        <span>Private: </span>
+        <input type="checkbox" checked={prvt} onChange={setPrivate} disabled={status}/>
+      </div>
       <div className="buttons">
         {!status ? (
           <img
@@ -66,4 +79,6 @@ Panel.propTypes = {
   loading: PropTypes.bool.isRequired,
   onSave: PropTypes.func.isRequired,
   onNew: PropTypes.func.isRequired,
+  prvt: PropTypes.bool.isRequired,
+  setPrivate: PropTypes.func.isRequired
 };
